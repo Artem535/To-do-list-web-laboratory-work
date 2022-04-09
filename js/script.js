@@ -40,6 +40,8 @@ function createEditButton(inputElement) {
     inputElement.readOnly = !readOnlyState;
     inputElement.contentEditable = !editState;
     inputElement.focus();
+    let taskId = inputElement.parentElement.parentElement.id;
+    updateTextTaskLS(taskId, inputElement.value)
     changeTextButton(editButton, nextTextButton);
   })
 
@@ -55,7 +57,7 @@ function createEditButton(inputElement) {
 function createDeleteButton(itemToDelete) {
   let deleteButton = createButton('delete', 'Удалить');
   deleteButton.addEventListener('click', function(event) {
-    removeTaskFromLocalStorage(itemToDelete.id);
+    removeTaskFromLS(itemToDelete.id);
     itemToDelete.parentNode.removeChild(itemToDelete);
   })
   return deleteButton;
@@ -91,25 +93,39 @@ function findMaxTaskId() {
 
 /**
  * Adds task to local storage.
+ * If task exists, text this task will be rewrite.
  * @param {String} taskId
  * @param {String} taskText
  */
-function addTaskToLocalStorage(taskId, taskText) {
-  localStorage.setItem(taskId, taskText)
+function addTaskToLS(taskId, taskText) {
+  localStorage.setItem(taskId, taskText);
 }
 
 /**
  * Removes task from local storage.
- * @param {String} taskId 
+ * @param {String} taskId
  */
-function removeTaskFromLocalStorage(taskId) {
-  localStorage.removeItem(taskId)
+function removeTaskFromLS(taskId) {
+  let task = localStorage.getItem(taskId)
+  if (task != null)
+    localStorage.removeItem(taskId);
+}
+
+/**
+ *
+ * @param {String} taskId
+ * @param {String} text
+ */
+function updateTextTaskLS(taskId, text) {
+  let task = localStorage.getItem(taskId);
+  if (task != null) 
+    localStorage[taskId] = text;
 }
 
 /**
  * Reads tasks from local storage and adds it to task-list.
  */
-function updateTaskFromLocalStorage(event) {
+function updateTaskFromLS(event) {
   for (let i = 0; i < localStorage.length; i++) {
     // Get data from local storage.
     let taskId = localStorage.key(i);
@@ -120,7 +136,7 @@ function updateTaskFromLocalStorage(event) {
 }
 
 /**
- * Adds task with specify id and text to task list. 
+ * Adds task with specify id and text to task list.
  * @param {String} taskId
  * @param {String} taskText
  */
@@ -169,7 +185,7 @@ function addTaskToListEvent(event) {
   if (taskText) {
     let taskId = `task-${findMaxTaskId() + 1}`;
     addTaskToList(taskId, taskText)
-    addTaskToLocalStorage(taskId, taskText);
+    addTaskToLS(taskId, taskText);
   }
   return false;
 }
@@ -177,4 +193,4 @@ function addTaskToListEvent(event) {
 
 document.getElementById('new-task-submit')
     .addEventListener('click', addTaskToListEvent);
-document.addEventListener('DOMContentLoaded', updateTaskFromLocalStorage);
+document.addEventListener('DOMContentLoaded', updateTaskFromLS);
