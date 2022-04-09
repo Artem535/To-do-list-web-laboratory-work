@@ -112,7 +112,7 @@ function removeTaskFromLS(taskId) {
 }
 
 /**
- *
+ * Updates text task in local storage. 
  * @param {String} taskId
  * @param {String} text
  */
