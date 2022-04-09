@@ -55,7 +55,8 @@ function createEditButton(inputElement) {
 function createDeleteButton(itemToDelete) {
   let deleteButton = createButton('delete', 'Удалить');
   deleteButton.addEventListener('click', function(event) {
-    itemToDelete.parentNode.removeChild(itemToDelete)
+    removeTaskFromLocalStorage(itemToDelete.id);
+    itemToDelete.parentNode.removeChild(itemToDelete);
   })
   return deleteButton;
 }
@@ -88,19 +89,44 @@ function findMaxTaskId() {
   return maxTaskId;
 }
 
+/**
+ * Adds task to local storage.
+ * @param {String} taskId
+ * @param {String} taskText
+ */
+function addTaskToLocalStorage(taskId, taskText) {
+  localStorage.setItem(taskId, taskText)
+}
 
 /**
- * Creates new task with text from `new-task-input` and add it to task list.
- * @param {*} event
- * @returns
+ * Removes task from local storage.
+ * @param {String} taskId 
  */
-function addTaskToList(event) {
-  // Change type from submit at the object with id = new-task-submit
-  event.preventDefault()
-  const taskText = document.getElementById('new-task-input').value;
-  if (taskText) {
+function removeTaskFromLocalStorage(taskId) {
+  localStorage.removeItem(taskId)
+}
+
+/**
+ * Reads tasks from local storage and adds it to task-list.
+ */
+function updateTaskFromLocalStorage(event) {
+  for (let i = 0; i < localStorage.length; i++) {
+    // Get data from local storage.
+    let taskId = localStorage.key(i);
+    let taskText = localStorage.getItem(taskId);
+    // Add task to task list.
+    addTaskToList(taskId, taskText);
+  }
+}
+
+/**
+ * Adds task with specify id and text to task list. 
+ * @param {String} taskId
+ * @param {String} taskText
+ */
+function addTaskToList(taskId, taskText) {
+  if (taskId != null && taskText != null) {
     let element = document.createElement('div');
-    let taskId = `task-${findMaxTaskId() + 1}`;
     element.setAttribute('class', 'task');
     element.setAttribute('id', taskId);
     console.log(element);
@@ -112,7 +138,6 @@ function addTaskToList(event) {
                     ['type', 'text'], ['class', 'text'], ['value', taskText],
                     ['contentEditable', 'false'], ['readOnly', 'true']
                   ]));
-    // inputElement.readOnly = true;
     contentElement.appendChild(inputElement);
     console.log(contentElement);
 
@@ -127,11 +152,29 @@ function addTaskToList(event) {
     // task-list.
     element.appendChild(contentElement);
     element.appendChild(actionsElement);
-    document.getElementById('tasks').appendChild(element)
-    console.log(element)
+    document.getElementById('tasks').appendChild(element);
+    console.log(element);
+  }
+}
+
+/**
+ * Creates new task with text from `new-task-input` and adds it to task list.
+ * @param {*} event
+ * @returns
+ */
+function addTaskToListEvent(event) {
+  // Change type from submit at the object with id = new-task-submit
+  event.preventDefault()
+  const taskText = document.getElementById('new-task-input').value;
+  if (taskText) {
+    let taskId = `task-${findMaxTaskId() + 1}`;
+    addTaskToList(taskId, taskText)
+    addTaskToLocalStorage(taskId, taskText);
   }
   return false;
 }
 
+
 document.getElementById('new-task-submit')
-    .addEventListener('click', addTaskToList);
+    .addEventListener('click', addTaskToListEvent);
+document.addEventListener('DOMContentLoaded', updateTaskFromLocalStorage);
