@@ -1,7 +1,7 @@
 /**
- * Create button with specify className and text.
- * @param {String} className Class button.
- * @param {String} text Text button.
+ * Creates button with specify className and text.
+ * @param {String} className Button class.
+ * @param {String} text Button text.
  * @returns Button.
  */
 function createButton(className, text) {
@@ -15,9 +15,9 @@ function createButton(className, text) {
 }
 
 /**
- * Change text in button.
+ * Changes text in button.
  * @param {HTMLDivElement} button Wich button need change text.
- * @param {String} newText New text button.
+ * @param {String} newText New text for button.
  */
 function changeTextButton(button, newText) {
   button.textContent = newText;
