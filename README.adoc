@@ -1,0 +1,10 @@
+= To-do list laboratory work.
+:authors: Artem Durynin(PMI-31), Vlad Vorontsov(PMI-32)
+
+== About project
+The purpose of this laboratory it create to-do list using html, css, js.
+
+== Features
+* Add new task.
+* Edit task name.
+* Delete task.
