@@ -1,20 +1,15 @@
 * {
   box-sizing: border-box;
   margin: 0;
-  font-family: 'Fira sans', sans-serif;
+  font-family: 'Comfortaa', cursive;
+  color: #fdd9b5;
 }
 
 body {
+  background-image: url('https://get.wallhere.com/photo/landscape-forest-lake-water-nature-reflection-grass-sky-river-national-park-valley-wilderness-stream-Bank-mount-scenery-nature-reserve-tree-mountain-watercourse-vegetation-creek-tarn-1920x1080-px-highland-computer-wallpaper-mountainous-landforms-biome-hill-station-old-growth-forest-tropical-and-subtropical-coniferous-forests-riparian-zone-fluvial-landforms-of-streams-792177.jpg');
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: rgb(34, 193, 195);
-  background: linear-gradient(
-    0deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(147, 253, 45, 1) 100%
-  );
-  color: #0b61a4; /*задачи - ЦВЕТ*/
 }
 
 header {
@@ -27,7 +22,7 @@ header {
 header h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #0b61a4;
+  color: #fdd9b5;
   margin-bottom: 1rem;
 }
 
@@ -44,8 +39,10 @@ button {
 }
 
 #new-task-input {
+  /*рамка под ввод*/
   flex: 1 1 0%;
-  background: #926cd6;
+  background: #474a51;
+  color: #fdd9b5; /*Цвет текста при вводе*/
   padding: 1rem;
   border-radius: 2rem;
   margin-right: 1rem;
@@ -53,13 +50,15 @@ button {
 }
 
 #new-task-input::placeholder {
-  color: white;
+  /*Цвет текста в рамке под ввод "Ничего не забыли?"*/
+  color: #fdd9b5;
 }
 
 #new-task-submit {
+  /*Добавить пункт*/
   font-size: 1.25rem;
-  font-weight: 700;
-  background: #926cd6;
+  font-weight: 850;
+  background: #fdd9b5;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   cursor: pointer;
@@ -79,23 +78,18 @@ main {
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
+  color: #fdd9b5;
 }
 
 .task-list {
   padding: 1rem;
 }
 
-.task-list h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #0b61a4;
-  margin-bottom: 1rem;
-}
-
 #tasks .task {
+  /*рамка под заметку*/
   display: flex;
   justify-content: space-between;
-  background-color: #926cd6;
+  background-color: #474a51;
   padding: 1rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
@@ -106,7 +100,6 @@ main {
 }
 
 .task .content .text {
-  color: white;
   font-size: 1.125rem;
   width: 100%;
   display: block;

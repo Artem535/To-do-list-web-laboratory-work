@@ -10,12 +10,6 @@
             "request": "launch",
             "reAttach": true,
             "file": "${workspaceFolder}/index.html",
-            "pathMappings": [
-                {
-                    "url": "file:///mnt/disk/Project/Code/Project/web/lab%203",
-                    "path": "${workspaceFolder}"
-                }
-            ]
         },
         {
             "name": "Launch localhost",
